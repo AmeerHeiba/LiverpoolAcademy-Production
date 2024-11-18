@@ -1,0 +1,12 @@
+<div class="container mt-5">
+    <h2><%= album.title %></h2>
+    <p><%= album.description %></p>
+    <div class="row">
+        <% album.imgUrl.forEach(img => { %>
+            <div class="col-md-4 mb-3">
+                <img src="<%= img %>" class="img-fluid" alt="Album Image">
+            </div>
+        <% }) %>
+    </div>
+    <a href="/admin/dashboard/gallery" class="btn btn-secondary">Back to Gallery</a>
+</div>

@@ -1,0 +1,52 @@
+<%- include("../partials/scripts", { title: "Manage Branches" }) %>
+
+<%- include("../partials/nav") %>
+<div class="container mt-5">
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h2>Manage Branches</h2>
+    </div>
+
+    <!-- Search and Add New Branch Button -->
+    <div class="d-flex justify-content-between mb-4">
+        <a href="/admin/dashboard/branch/add" class="btn btn-primary shadow-sm">Add New Branch</a>
+    </div>
+
+    <!-- Branch Cards Section -->
+    <div class="row">
+        <% modelData.forEach(branch => { %>
+            <div class="col-md-4 mb-4" id="<%= branch._id %>">
+                <div class="card branch-card shadow-sm rounded">
+                    <% if (branch.photo) { %>
+                        <img src="<%= branch.photo %>" class="card-img-top branch-photo" alt="<%= branch.branchName %>">
+                    <% } else { %>
+                        <div class="card-img-top branch-photo placeholder">No Image</div>
+                    <% } %>
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><%= branch.branchName %></h5>
+                        <p class="card-text text-center"><%= branch.address %></p>
+                        <p class="card-text text-center"><%= branch.phone %></p>
+                        <p class="card-text text-center"><%= branch.email || "N/A" %></p>
+                        <p class="card-text text-center"><strong>Author:</strong> <%= branch.author %></p>
+                        <p class="card-text text-center"><strong>Created At:</strong> <%= branch.createdAt ? branch.createdAt.toDateString() : "Unknown" %></p>
+
+                        <div class="d-flex justify-content-around mt-3">
+                            <a class="btn btn-info btn-sm" title="View" data-id="<%= branch._id %>"><i class="fas fa-eye" data-id="<%= branch._id %>"></i> View</a>
+                            <a href="/admin/dashboard/branch/update/<%= branch._id %>" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i> Edit</a>
+                            <button class="btn btn-danger btn-sm delete-item" data-id="<%= branch._id %>" title="Delete" data-type="branch"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<!-- Include Modals for Viewing Branch Details -->
+<%- include("../partials/viewBranchModal") %>
+
+<script src="/js/dashboard.js"></script>
+<%- include("../partials/footer") %>
+
+</body>
+</html>

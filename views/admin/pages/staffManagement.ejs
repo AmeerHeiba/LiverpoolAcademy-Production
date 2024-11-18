@@ -1,0 +1,51 @@
+<%- include("../partials/scripts", { title: "Manage Staff" }) %>
+
+<%- include("../partials/nav") %>
+<div class="container mt-5">
+    <!-- Page Header -->
+    <h2 class="text-center mb-4">Manage Staff</h2>
+
+    <!-- Search and Add New Staff Button -->
+    <div class="d-flex justify-content-between mb-4">
+
+        <a href="/admin/dashboard/staff/add" class="btn btn-primary shadow-sm">Add New Staff</a>
+    </div>
+
+    <!-- Staff Cards Section -->
+    <div class="row">
+        <% modelData.forEach(staff => { %>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card staff-card shadow-sm">
+                    <% if (staff.photo) { %>
+                        <img src="<%= staff.photo %>" class="card-img-top staff-photo" alt="<%= staff.Employeename %>">
+                    <% } else { %>
+                        <div class="card-img-top staff-photo placeholder">No Photo</div>
+                    <% } %>
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><%= staff.Employeename %></h5>
+                        <p class="card-text text-center">
+                            <span class="badge" style="background-color: <%= staff.role === 'Coach' ? '#ffc107' : staff.role === 'Player' ? '#007bff' : '#28a745' %>">
+                                <%= staff.role %>
+                            </span>
+                        </p>
+                        <div class="text-center mb-3">
+                            <p><strong>Position:</strong> <%= staff.position %></p>
+                            <p><strong>Email:</strong> <%= staff.email || "N/A" %></p>
+                            <p><strong>Phone:</strong> <%= staff.phone || "N/A" %></p>
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <a class="btn btn-info btn-sm" title="View"><i class="fas fa-eye" data-id="<%= staff._id %>"></i> View</a>
+                            <a href="/admin/dashboard/staff/update/<%= staff._id %>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                            <button class="btn btn-danger btn-sm delete-item" data-id="<%= staff._id %>" data-type="staff"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<!-- Include Modals for Viewing Staff Details -->
+<%- include("../partials/viewStaffModal") %>
+<script src="/js/dashboard.js"></script>
+<%- include("../partials/footer") %>

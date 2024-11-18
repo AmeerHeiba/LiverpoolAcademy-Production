@@ -1,0 +1,73 @@
+<%- include("../partials/scripts", {title: "Manage Album Photos"}) %>
+<%- include('../partials/nav') %>
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Manage Album Photos</h2>
+
+    <section class="gallery-list mt-4">
+        <h3 class="text-muted">All Images</h3>
+
+        <div class="row">
+            <!-- Header Photo -->
+            <% if (images.length > 0) { %>
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="<%= images[0].path %>" class="card-img-top rounded" alt="Header Photo">
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+
+            <!-- Other Images -->
+            <% images.slice(1).forEach(image => { %>
+                <div class="col-md-4 mb-4" id="<%= image._id %>">
+                    <div class="card shadow-sm">
+                        <img src="<%= image.path %>" class="card-img-top rounded" alt="Album Image">
+                        <div class="card-footer bg-white text-center">
+                            <a class="icon-link text-danger mx-2" id="deletePhoto" data-album-id="<%= albumId %>" data-id="<%= image._id %>" data-type="album" title="Delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+
+            <!-- Add New Image Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card text-center add-image-card" data-bs-toggle="modal" data-bs-target="#addPhotoModal">
+                    <div class="card-body d-flex align-items-center justify-content-center" style="height: 100%;">
+                        <i class="fas fa-plus fa-3x text-muted"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Photo Modal -->
+    <div class="modal fade" id="addPhotoModal" tabindex="-1" aria-labelledby="addPhotoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="addPhotoForm" method="POST" data-id="<%= albumId %>" enctype="multipart/form-data">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="addPhotoModalLabel">Add Photo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Upload Image</label>
+                            <input type="file" class="form-control" id="photo" name="photo" multiple>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="addPhotoBtn">Add Photo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/albumPhotoManager.js"></script>
+<%- include('../partials/footer') %>

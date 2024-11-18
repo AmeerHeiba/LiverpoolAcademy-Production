@@ -1,0 +1,75 @@
+<%- include("partials/scripts", { title: formMethod === "PUT" ? "Edit" : "Create" }) %>
+
+<body>
+    <%- include("partials/nav") %>
+
+    <div class="container mt-5">
+        <div class="form-card shadow-lg p-4 rounded bg-white">
+            <h2 class="text-center mb-4">
+                <%= formMethod === "PUT" ? "Edit" : "Create" %> <%= capitalize(modelType) %>
+            </h2>
+
+            <div id="error-message" class="alert alert-danger d-none"></div>
+            
+            <div class="loading-spinner">
+                <%- include("partials/spinner") %>
+            </div>
+            
+            <form id="dynamicForm" action="/admin/dashboard/<%= modelType %>/<%= formMethod === 'PUT' ? item._id : '' %>" method="<%= formMethod === 'PUT' ? 'PUT' : 'POST' %>" enctype="multipart/form-data" novalidate>
+                <div class="row">
+                    <% fields.forEach(field => { %>
+                        <div class="col-md-6 mb-3">
+                            <label for="<%= field.name %>" class="form-label"><%= capitalize(field.name) %></label>
+                    
+                            <% if (field.type === 'textarea') { %>
+                                <textarea id="<%= field.name %>" name="<%= field.name %>" class="form-control" <%= field.required ? 'required' : '' %>><%= item && item[field.name] ? item[field.name] : '' %></textarea>
+                            <% } else if (field.name === 'photo' || field.name === 'video') { %>
+                                <input type="file" id="<%= field.name %>" name="<%= field.name %>" class="form-control-file" <%= field.required ? 'required' : '' %> />
+                                <% if (item && item[field.name]) { %>
+                                    <div class="preview mt-2">
+                                        <% if (field.name === 'photo') { %>
+                                            <img src="<%= item[field.name] %>" alt="Current <%= field.name %>" class="img-thumbnail" width="150">
+                                        <% } else { %>
+                                            <video width="150" controls>
+                                                <source src="<%= item[field.name] %>" type="video/mp4">
+                                            </video>
+                                        <% } %>
+                                    </div>
+                                <% } %>
+                            <% } else if (field.type === 'select') { %>
+                                <select id="<%= field.name %>" name="<%= field.name %>" class="form-select" <%= field.required ? 'required' : '' %>>
+                                    <% field.options.forEach(option => { %>
+                                        <option value="<%= option %>" <%= item && item[field.name] === option ? 'selected' : '' %>><%= option %></option>
+                                    <% }) %>
+                                </select>
+                            <% } else if (field.type === 'checkbox') { %>
+                                <% field.options.forEach(option => { %>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="<%= field.name %>_<%= option %>" name="<%= field.name %>[]"
+                                               value="<%= option %>" class="form-check-input"
+                                               <%= item && item[field.name] && item[field.name].includes(option) ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="<%= field.name %>_<%= option %>"><%= option %></label>
+                                    </div>
+                                <% }) %>
+                            <% } else { %>
+                                <input type="<%= field.type %>" id="<%= field.name %>" name="<%= field.name %>" class="form-control" value="<%= item && item[field.name] ? item[field.name] : '' %>" <%= field.required ? 'required' : '' %>>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                    
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary w-50">
+                        <%= formMethod === "PUT" ? "Update" : "Create" %> <%= capitalize(modelType) %>
+                    </button>
+                    <a href="/admin/dashboard" class="btn btn-secondary w-50 mt-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <%- include("partials/footer") %>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

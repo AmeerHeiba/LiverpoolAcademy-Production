@@ -1,0 +1,307 @@
+/* General Body */
+body {
+    background-color: #eef2f6; /* Subtle light blue-gray for a cleaner, modern look */
+    font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+    color: #333; /* Deep gray for better readability */
+    margin: 0;
+    padding: 0;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow for modern design */
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); /* Highlighted hover effect */
+}
+
+.card-img-top {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 240px; /* Taller image for visual impact */
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #00274d; /* Deep navy for strong contrast */
+    border-bottom: 3px solid #f8c146; /* Golden highlight for branding */
+}
+
+.navbar-brand {
+    color: #f8c146;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.navbar-nav .nav-link {
+    color: #f8f9fa; /* Light text for contrast */
+    font-weight: 500;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f8c146 !important; /* Golden hover for branding consistency */
+}
+
+/* Footer */
+footer {
+    background-color: #00274d; /* Matches navbar for consistency */
+    color: #f8f9fa; /* Light text */
+    padding: 20px;
+    font-size: 0.9em;
+    text-align: center;
+    border-top: 3px solid #f8c146; /* Golden accent */
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 30px; /* Softer, rounded edges */
+    padding: 10px 25px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary {
+    background-color: #0069d9;
+    border-color: #0056b3;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004494;
+    transform: translateY(-2px);
+}
+
+/* Icon Link Hover */
+.icon-link:hover i {
+    color: #f8c146; /* Golden icon hover */
+}
+
+/* Search Bar */
+#searchBar {
+    border-radius: 30px 0 0 30px;
+    border: 1px solid #ced4da;
+    padding: 10px 20px;
+    font-size: 0.9em;
+}
+
+#searchButton {
+    border-radius: 0 30px 30px 0;
+    padding: 10px 20px;
+    font-size: 0.9em;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #212529;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.text-muted {
+    font-size: 0.95em;
+    color: #6c757d;
+    margin-top: 8px;
+}
+
+/* List Items */
+.item-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e4e8;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-card:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Dividers */
+.card-divider {
+    border-bottom: 1px solid #e9ecef;
+    margin: 15px 0;
+}
+
+/* Containers */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Table */
+.table {
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.table th, .table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.thead-dark {
+    background-color: #343a40;
+    color: white;
+    font-weight: bold;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+/* Input Field */
+#searchBar {
+    border-radius: 30px;
+    border: 1px solid #ced4da;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+/* Buttons */
+.btn-info {
+    background-color: #0069d9;
+    border-color: #0069d9;
+    color: #fff;
+}
+
+.btn-warning {
+    background-color: #f8c146;
+    border-color: #f8c146;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* Staff & Story Card Styling */
+.staff-card, .story-card, .branch-card {
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.staff-card:hover, .story-card:hover, .branch-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Staff, Story, Branch Photo Styling */
+.staff-photo, .story-photo, .branch-photo {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.staff-photo.placeholder, .story-photo.placeholder, .branch-photo.placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: #f0f0f0;
+    color: #888;
+    font-weight: bold;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* Badge Color Based on Role */
+.badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 20px;
+}
+/* Scrollable container for list items */
+.item-list-container {
+    max-height: 12rem; /* Limits to approximately 3 items' height */
+    overflow-y: auto; /* Enables vertical scrolling */
+    scrollbar-width: thin; /* Thinner scrollbar for modern browsers */
+    scrollbar-color: #ccc #f8f9fa; /* Custom colors for scrollbar */
+}
+
+/* Custom Scrollbar for Webkit Browsers */
+.item-list-container::-webkit-scrollbar {
+    width: 8px; /* Narrow scrollbar */
+}
+
+.item-list-container::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Gray scrollbar thumb */
+    border-radius: 4px; /* Rounded scrollbar thumb */
+}
+
+.item-list-container::-webkit-scrollbar-track {
+    background-color: #f8f9fa; /* Light scrollbar track */
+}
+
+/* Ensure individual list items maintain spacing and styling */
+.item-card {
+    background-color: #ffffff; /* White background */
+    border: 1px solid #e0e4e8; /* Light border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 15px; /* Padding inside items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s; /* Subtle hover effects */
+}
+
+.item-card:hover {
+    background-color: #f8f9fa; /* Slightly darker background on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* Elevated hover effect */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .btn {
+        padding: 8px 15px;
+    }
+    .card-img-top {
+        height: 200px; /* Adjust image size for smaller screens */
+    }
+    .table {
+        font-size: 0.875rem;
+    }
+    .staff-card, .story-card, .branch-card {
+        margin-bottom: 20px;
+    }
+    .input-group {
+        display: block;
+        width: 100%;
+    }
+}

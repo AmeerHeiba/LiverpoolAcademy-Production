@@ -1,0 +1,117 @@
+
+    <%- include("../partials/scripts", {title: "Dashboard"}) %>
+
+    <%- include("../partials/nav") %>
+    
+    <!-- Dashboard Container -->
+    <div class="container mt-5">
+        <!-- Statistics Overview Section -->
+        <div class="row text-center mb-5">
+            <% const stats = { ...statistics }; %>
+            <% Object.keys(stats).forEach(stat => { %>
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+                    <div class="card shadow-sm stat-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= stat.replace('Count', '') %></h5>
+                            <p class="card-text"><%= stats[stat] %></p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+
+        <!-- Manage Sections -->
+        <div class="row">
+            <!-- News Section -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title text-center">Manage News</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% news.forEach(newsItem => { %>
+                            <%- include("../partials/card", { item: newsItem, type: "news" }) %>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Branches Section -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="card-title text-center">Branches</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% branches.forEach(branch => { %>
+                            <%- include("../partials/card", { item: branch, type: "branch" }) %>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-white">
+                        <h4 class="card-title text-center">Services</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% services.forEach(service => { %>
+                            <%- include("../partials/card", { item: service, type: "service" }) %>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Gallery Section -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="card-title text-center">Gallery</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% gallery.forEach(galleryItem => { %>
+                            <%- include("../partials/card", { item: galleryItem, type: "gallery" }) %>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Story Section -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-danger text-white">
+                        <h4 class="card-title text-center">Story</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% stories.forEach(story => { %>
+                            <%- include("../partials/card", { item: story, type: "story" }) %>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Staff Section -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h4 class="card-title text-center">Staff and Players</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% staff.forEach(staffItem => { %>
+                            <%- include("../partials/card", { item: staffItem, type: "staff" }) %>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <%- include("../partials/footer") %>
+</body>
+</html>

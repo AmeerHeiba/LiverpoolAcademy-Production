@@ -1,0 +1,50 @@
+<div class="item-list-container list-group bg-light border rounded shadow-sm mb-3" style="max-height: 12rem; overflow-y: auto;">
+    <li class="item-card list-group-item p-3 d-flex justify-content-between align-items-center">
+        <div>
+            <!-- Display item title or name -->
+            <h5 class="text-dark mb-1"><%= 
+                item.title || 
+                item.name || 
+                item.branchName || 
+                item.Employeename || 
+                "Unnamed Item" 
+            %></h5>
+            <!-- Author or creator -->
+            <small class="text-muted d-block">
+                <%= 
+                    item.author 
+                        ? "by " + item.author 
+                        : (item.role 
+                            ? "Role: " + item.role 
+                            : "Role: Unknown") 
+                %>
+            </small>
+        </div>
+
+        <!-- Date -->
+        <span class="text-secondary small fw-light">
+            <%= 
+                item.createdAt 
+                    ? item.createdAt.toDateString().split(' ').slice(1).join(' ') 
+                    : (item.joinedAt 
+                        ? item.joinedAt.toDateString().split(' ').slice(1).join(' ') 
+                        : "Date Unknown") 
+            %>
+        </span>
+
+        <!-- Actions -->
+        <div class="card-actions d-flex align-items-center">
+            <!-- Delete -->
+            <a class="icon-link delete-item mx-2 text-decoration-none" data-id="<%= item._id %>" data-type="<%= type %>" title="Delete">
+                <i class="fas fa-trash text-danger" aria-hidden="true"></i>
+                <span class="sr-only">Delete</span>
+            </a>
+            <!-- Edit -->
+            <a href="/admin/dashboard/<%= type %>/update/<%= item._id %>" class="icon-link mx-2 text-decoration-none" title="Edit">
+                <i class="fas fa-edit text-primary" aria-hidden="true"></i>
+                <span class="sr-only">Edit</span>
+            </a>
+        </div>
+    </li>
+    <!-- Add more <li> items as needed -->
+</div>

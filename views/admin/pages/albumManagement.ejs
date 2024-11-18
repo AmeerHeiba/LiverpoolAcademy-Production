@@ -1,0 +1,112 @@
+<%- include("../partials/scripts", {title: "Manage Albums"}) %>
+<%- include('../partials/nav') %>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">Albums Management</h2>
+
+    <!-- Albums List Section -->
+    <section class="gallery-list mt-4">
+        <h3 class="text-secondary mb-4">All Albums</h3>
+        <div class="d-flex justify-content-end mb-4">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAlbumModal">
+                <i class="fas fa-plus-circle me-2"></i> Add New Album
+            </button>
+        </div>
+
+        <div class="row">
+            <% modelData.forEach(album => { %>
+                <div class="col-md-4 mb-4" id="<%= album._id %>">
+                    <div class="card album-card shadow-lg rounded-3" data-id="<%= album._id %>">
+                        <img src="<%= album.images[0].path %>" class="card-img-top rounded-top" alt="Album Image">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary" data-title="<%= album.title %>"><%= album.title %></h5>
+                            <small class="text-muted d-block">
+                                <%= album.author ? "by " + album.author : "Author Unknown" %>
+                            </small>
+                            <span class="text-muted d-block">
+                                <%= album.createdAt 
+                                    ? album.createdAt.toDateString().split(' ').slice(1).join(' ') 
+                                    : "Date Unknown" %>
+                            </span>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                            <a class="icon-link delete-item" data-id="<%= album._id %>" data-type="album" title="Delete">
+                                <i class="fas fa-trash text-danger" aria-hidden="true"></i> Delete
+                            </a>
+                            <a href="/admin/dashboard/album/update/<%= album._id %>" class="icon-link" title="Edit">
+                                <i class="fas fa-edit text-warning" aria-hidden="true"></i> Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+
+    <!-- Add Album Modal -->
+    <div class="modal fade" id="addAlbumModal" tabindex="-1" aria-labelledby="addAlbumModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-3 shadow-lg">
+                <form id="addAlbumForm" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="addAlbumModalLabel">Add New Album</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="albumTitle" class="form-label">Album Title</label>
+                            <input type="text" class="form-control" id="albumTitle" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="albumDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="albumDescription" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="images" class="form-label">Upload Images</label>
+                            <input type="file" class="form-control" id="images" name="images" multiple>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="addAlbumBtn">Add Album</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Album Modal -->
+    <div class="modal fade" id="editAlbumModal" tabindex="-1" aria-labelledby="editAlbumModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-3 shadow-lg">
+                <form id="editAlbumForm" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header bg-warning text-white">
+                        <h5 class="modal-title" id="editAlbumModalLabel">Edit Album</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="editAlbumTitle" class="form-label">Album Title</label>
+                            <input type="text" class="form-control" id="editAlbumTitle" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAlbumDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editAlbumDescription" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <input type="hidden" class="form-control" id="AlbumId" name="AlbumId"></input>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning" id="editAlbumBtn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/js/albumManagement.js"></script>
+<%- include("../partials/footer") %>
