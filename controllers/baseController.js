@@ -45,7 +45,11 @@ exports.handleRequest = (model, operation) => async (req, res, next = (err) => r
                 const imageId = req.params.imageId; 
                 const result = await serviceFunction(albumId, imageId);
                 res.status(200).json({ message: `Image removed from ${model.modelName} successfully`, data: result });
-            }
+            },
+            getCount: async () => {
+                const result = await serviceFunction();
+                res.status(200).json(result);
+            },
         };
 
         if (!operationMap[operation]) {

@@ -15,12 +15,12 @@ const Album = require("../models/Album");
 
 // Map model names to their corresponding services and models
 const modelServices = {
-    news: { model: News, service: { getAll: createService("getAll", News), getById: createService("getById", News) } },
-    branch: { model: Branch, service: { getAll: createService("getAll", Branch), getById: createService("getById", Branch) } },
-    service: { model: Service, service: { getAll: createService("getAll", Service), getById: createService("getById", Service) } },
-    album: { model: Album, service: { getAll: createService("getAll", Album), getById: createService("getById", Album), addImageToAlbum: createService("addImageToAlbum", Album), deleteImageFromAlbum: createService("deleteImageFromAlbum", Album) } },
-    story: { model: Story, service: { getAll: createService("getAll", Story), getById: createService("getById", Story) } },
-    staff: { model: Staff, service: { getAll: createService("getAll", Staff), getById: createService("getById", Staff) } },
+    news: { model: News, service: { getAll: createService("getAll", News), getById: createService("getById", News), getCount: createService("getCount", News) } },
+    branch: { model: Branch, service: { getAll: createService("getAll", Branch), getById: createService("getById", Branch), getCount: createService("getCount", Branch) } },
+    service: { model: Service, service: { getAll: createService("getAll", Service), getById: createService("getById", Service), getCount: createService("getCount", Service) } },
+    album: { model: Album, service: { getAll: createService("getAll", Album), getById: createService("getById", Album), getCount: createService("getCount", Album), addImageToAlbum: createService("addImageToAlbum", Album), deleteImageFromAlbum: createService("deleteImageFromAlbum", Album) } },
+    story: { model: Story, service: { getAll: createService("getAll", Story), getById: createService("getById", Story), getCount: createService("getCount", Story) } },
+    staff: { model: Staff, service: { getAll: createService("getAll", Staff), getById: createService("getById", Staff), getCount: createService("getCount", Staff) } },
 
     
 };
@@ -28,14 +28,7 @@ const modelServices = {
 // Render the dashboard with data for all models
 exports.renderDashboard = async (req, res, next) => {
     try {
-        const statistics = {
-            newsCount: 44, 
-            branchCount: 5, 
-            serviceCount: 3, 
-            galleryCount: 15, 
-            storyCount: 10, 
-            staffCount:26
-        }
+ 
         const dataPromises = Object.values(modelServices).map(async ({ model }) => model.find());
         const news = await dataPromises[0];
         const branches = await dataPromises[1];
@@ -43,10 +36,17 @@ exports.renderDashboard = async (req, res, next) => {
         const gallery = await dataPromises[3];
         const stories = await dataPromises[4];
         const staff = await dataPromises[5];
-        console.log(staff);
-
+        
+        const statisticsCounts = (await Promise.all(Object.values(modelServices).map(async ({ service }) => service.getCount()))); 
+                // Map counts to model names
+        const modelNames = Object.keys(modelServices);
+        const statistics = modelNames.reduce((acc, modelName, index) => {
+            acc[modelName] = statisticsCounts[index];
+                return acc;
+            }, {});
+        
         res.render("admin/pages/dashboard", { news, branches, services, gallery, stories, staff, statistics });
-        console.log(staff);
+        
     } catch (error) {
         next(new CustomError(500, "Error loading dashboard"));
     }

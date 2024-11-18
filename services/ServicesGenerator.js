@@ -44,6 +44,10 @@ exports.createService = (serviceType, serviceModel) => {
             album.images.splice(imageIndex, 1);
             await album.save();
             return album;
+        },
+        getCount: async () => {
+            const count = await serviceModel.countDocuments();
+            return count;
         }
     };
 
