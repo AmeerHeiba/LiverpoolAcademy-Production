@@ -82,6 +82,9 @@ app.use(cookieParser());
 
 
 // Admin routes
+app.use("/", async (req, res, next) => {
+    res.redirect("/admin/login");
+})
 app.use("/admin", adminAuthRouter);
 app.use("/admin/dashboard", dashboardRouter);
 
