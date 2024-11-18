@@ -12,7 +12,7 @@ const errorHandler = require("../middlewares/errorHandler");
 const CustomError = require("../utils/CustomError");
 const dotenv = require("dotenv");
 const path = require("path");
-import { inject } from '@vercel/analytics';
+const { inject } = require("@vercel/analytics");
  
 inject();
 
