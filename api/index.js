@@ -65,8 +65,8 @@ const apiLimiter = rateLimit({
 
 // CORS setup
 const corsOptions = {
-    origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: "*",
+    methods: ['GET'],
     credentials: true
 };
 
