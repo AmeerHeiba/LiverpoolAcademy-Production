@@ -241,10 +241,9 @@ h2 {
 }
 /* Scrollable container for list items */
 .item-list-container {
-    max-height: 12rem; /* Limits to approximately 3 items' height */
-    overflow-y: auto; /* Enables vertical scrolling */
     scrollbar-width: thin; /* Thinner scrollbar for modern browsers */
     scrollbar-color: #ccc #f8f9fa; /* Custom colors for scrollbar */
+
 }
 
 /* Custom Scrollbar for Webkit Browsers */
@@ -271,12 +270,31 @@ h2 {
     justify-content: space-between;
     align-items: center;
     transition: transform 0.3s, box-shadow 0.3s; /* Subtle hover effects */
+    
 }
+
+.item-card h5 {
+    display: -webkit-box; /* Ensures the text behaves like a block container */
+    -webkit-line-clamp: 1; /* Specifies the number of lines to display */
+    -webkit-box-orient: vertical; /* Ensures proper box orientation for the clamp */
+    overflow: hidden; /* Hides overflowing content */
+    text-overflow: ellipsis; /* Adds ellipsis (...) to indicate truncation */
+}
+
+
 
 .item-card:hover {
     background-color: #f8f9fa; /* Slightly darker background on hover */
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* Elevated hover effect */
+}
+
+.scrollable-card{
+    max-height: 18rem !important;
+    min-height: 18rem !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none !important;
 }
 
 
