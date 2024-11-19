@@ -14,7 +14,7 @@
     <!-- Staff Cards Section -->
     <div class="row">
         <% modelData.forEach(staff => { %>
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4" id="<%= staff._id %>">
                 <div class="card staff-card shadow-sm">
                     <% if (staff.photo) { %>
                         <img src="<%= staff.photo %>" class="card-img-top staff-photo" alt="<%= staff.Employeename %>">

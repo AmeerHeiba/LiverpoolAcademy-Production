@@ -60,24 +60,33 @@ function hideLoadingSpinner() {
 
 
 // Helper to upload photo or video to Cloudinary
-async function uploadToCloudinary(file, type) {
-  const cloudinaryUrl = `https://api.cloudinary.com/v1_1/dukl6eyfn/${type}/upload`;
+async function uploadToCloudinary(file) {
+  const cloudinaryUrl = `https://api.cloudinary.com/v1_1/dukl6eyfn/upload`; // Correct endpoint
   const formData = new FormData();
   formData.append("file", file);
-  formData.append("upload_preset", "xvwxckhr");
+  formData.append("upload_preset", "xvwxckhr"); // Ensure the preset exists and is unsigned
 
   try {
     const response = await fetch(cloudinaryUrl, {
       method: "POST",
-      body: formData
+      body: formData,
     });
+
+    if (!response.ok) {
+      const errorDetails = await response.json();
+      console.error("Cloudinary error details:", errorDetails);
+      throw new Error(`Cloudinary error: ${errorDetails.error.message}`);
+    }
+
     const data = await response.json();
-    return data.secure_url;
+    console.log("Cloudinary upload response:", data);
+    return data.secure_url; // Use the uploaded file's secure URL
   } catch (error) {
     console.error("Error uploading to Cloudinary:", error);
     throw error;
   }
 }
+
 
 async function prepareFormDataforSubmission(event, form) {
   event.preventDefault(); // Prevent the default form submission
@@ -86,14 +95,17 @@ async function prepareFormDataforSubmission(event, form) {
 
   // Create a new FormData object from the form
   const formData = new FormData(form);
+  const files = form.querySelectorAll('input[type="file"]');
+  const fileUploads = []; 
 
   // Collect the selected training days into an array
   const trainingDays = [];
   const checkboxes = form.querySelectorAll('input[name="trainingDays[]"]:checked');
+  if (checkboxes.length > 0) {
   checkboxes.forEach((checkbox) => {
     trainingDays.push(checkbox.value);
   });
-
+  }
 
   // Add trainingDays as a JSON string to ensure it is sent as an array
   if (trainingDays.length > 0) {
@@ -101,21 +113,27 @@ async function prepareFormDataforSubmission(event, form) {
     formData.append("trainingDays", trainingDays); // Append the entire array as a single FormData value
   }
 
-  
-
-  // Handle file upload if needed (e.g., for images)
-  const files = form.querySelectorAll('input[type="file"]');
-  files.forEach((fileInput) => {
+  // Handle file uploads
+  files?.forEach((fileInput) => {
     const file = fileInput.files[0];
     if (file) {
-      formData.append(fileInput.name, file); // Append the selected file to FormData
+      const uploadPromise = uploadToCloudinary(file).then((uri) => {
+        formData.set(fileInput.name, uri); // Replace file input with its URI
+      });
+      fileUploads.push(uploadPromise);
     }
   });
 
-  hideLoadingSpinner(); // Hide the loading spinner after the form data is ready
+  try {
+    await Promise.all(fileUploads); // Wait for all file uploads to complete
+    hideLoadingSpinner();
+    submitForm(form, formData); // Submit the form with the updated FormData
+  } catch (error) {
+    console.error("Error processing form submission:", error);
+    alert("Error uploading files. Please try again.");
+    hideLoadingSpinner();
+  }
 
-  // Submit the form with the FormData
-  submitForm(form, formData); // Call the function to submit the form
 }
 
 
