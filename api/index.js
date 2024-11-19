@@ -44,7 +44,7 @@ app.use(
             defaultSrc: ["'self'"],
             scriptSrc: ["'self'"],
             connectSrc: ["'self'", "https://api.cloudinary.com"],  // Allows connections to Cloudinary's API
-            imgSrc: ["'self'", "https://res.cloudinary.com"],       // Allows images loaded from Cloudinary
+            imgSrc: ["'self'", "https://res.cloudinary.com", "data:"],       // Allows images loaded from Cloudinary
             mediaSrc: ["'self'", "https://res.cloudinary.com"]      // Allows media content from Cloudinary
         },
     })
