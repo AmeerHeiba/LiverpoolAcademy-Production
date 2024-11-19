@@ -19,6 +19,7 @@ module.exports = {
         { name: 'email', type: 'email', required: false },
         { name: 'phone', type: 'text', required: false },
         { name: 'role', type: 'text', required: true },
+        {name: 'bio', type: 'textarea', required: false},
         { name: 'TshirtNo', type: 'text', required: false },
         { name: 'photo', type: 'file', required: false },
         { name: 'joinedAt', type: 'date', required: false },
@@ -32,6 +33,7 @@ module.exports = {
     service: [
         { name: 'title', type: 'text', required: true },
         { name: 'description', type: 'textarea', required: true },
+        { name: 'photo', type: 'file', required: false },
         { name: 'location', type: 'text', required: true },
         { name: 'birthRangeFrom', type: 'number', required: true },
         { name: 'birthRangeTo', type: 'number', required: true },

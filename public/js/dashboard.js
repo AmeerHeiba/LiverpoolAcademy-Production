@@ -74,12 +74,10 @@ async function uploadToCloudinary(file) {
 
     if (!response.ok) {
       const errorDetails = await response.json();
-      console.error("Cloudinary error details:", errorDetails);
       throw new Error(`Cloudinary error: ${errorDetails.error.message}`);
     }
 
     const data = await response.json();
-    console.log("Cloudinary upload response:", data);
     return data.secure_url; // Use the uploaded file's secure URL
   } catch (error) {
     console.error("Error uploading to Cloudinary:", error);
@@ -92,6 +90,7 @@ async function prepareFormDataforSubmission(event, form) {
   event.preventDefault(); // Prevent the default form submission
 
   showLoadingSpinner(); // Show a loading spinner to indicate form processing
+  
 
   // Create a new FormData object from the form
   const formData = new FormData(form);
@@ -164,20 +163,6 @@ function submitForm(form, formData) {
 }
 
 // This is a placeholder for showing a loading spinner
-function showLoadingSpinner() {
-  const spinner = document.querySelector('#loading-spinner');
-  if (spinner) {
-    spinner.style.display = 'block'; // Show the spinner
-  }
-}
-
-// This is a placeholder for hiding the loading spinner
-function hideLoadingSpinner() {
-  const spinner = document.querySelector('#loading-spinner');
-  if (spinner) {
-    spinner.style.display = 'none'; // Hide the spinner
-  }
-}
 
 
 async function submitForm(form, formData) {
@@ -205,7 +190,7 @@ async function submitForm(form, formData) {
     if (!response.ok) throw await response.json(); // Parse the error response
 
     alert("Form submitted successfully");
-    window.location.href = `/admin/dashboard/${form.getAttribute("data-type")}`;
+    window.location.href = `/admin/dashboard/${form.getAttribute("data-type")}/view`;
   } catch (error) {
     if (error.status === "fail") {
       document.getElementById("error-message").textContent = `Error: ${error.message}`;

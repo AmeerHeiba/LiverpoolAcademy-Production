@@ -8,23 +8,11 @@
         <a href="/admin/dashboard/story/add" class="btn btn-primary shadow-sm">Add New Story</a>
     </div>
     
-    <!-- Search Bar -->
-    <div class="input-group mb-4 w-50 mx-auto">
-        <input 
-            type="text" 
-            class="form-control shadow-sm" 
-            id="searchBar" 
-            placeholder="Search by story title or author" 
-        >
-        <button class="btn btn-outline-secondary shadow-sm" type="button" id="searchButton">
-            <i class="fas fa-search"></i> Search
-        </button>
-    </div>
 
     <!-- Story Cards Section -->
     <div class="row">
         <% modelData.forEach(story => { %>
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4" id="<%= story._id %>">
                 <div class="card story-card shadow-sm rounded">
                     <% if (story.photo) { %>
                         <img src="<%= story.photo %>" class="card-img-top story-photo" alt="<%= story.title %>">
@@ -51,6 +39,7 @@
 
 <!-- Include Modals for Viewing Story Details -->
 <%- include("../partials/viewStoryModal") %>
+<%- include("../partials/spinner") %>
 <script src="/js/dashboard.js"></script>
 <%- include("../partials/footer") %>
 

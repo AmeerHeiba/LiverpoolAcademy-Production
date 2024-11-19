@@ -11,11 +11,11 @@
 
             <div id="error-message" class="alert alert-danger d-none"></div>
             
-            <div class="loading-spinner">
-                <%- include("partials/spinner") %>
-            </div>
             
-            <form id="dynamicForm" action="/admin/dashboard/<%= modelType %>/<%= formMethod === 'PUT' ? item._id : '' %>" method="<%= formMethod === 'PUT' ? 'PUT' : 'POST' %>" enctype="multipart/form-data" novalidate>
+                <%- include("partials/spinner") %>
+            
+            
+            <form id="dynamicForm" action="/admin/dashboard/<%= modelType %>/<%= formMethod === 'PUT' ? item._id : '' %>" method="<%= formMethod === 'PUT' ? 'PUT' : 'POST' %>" enctype="multipart/form-data" data-type="<%= modelType %>" novalidate>
                 <div class="row">
                     <% fields.forEach(field => { %>
                         <div class="col-md-6 mb-3">
@@ -69,7 +69,9 @@
         </div>
     </div>
 
+
     <%- include("partials/footer") %>
+
     <script src="/js/dashboard.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ const staffSchema = new mongoose.Schema({
     Employeename: { type: String, required: true },
     position: { type: String, required: true },
     role:{ type: String, required: true },
+    bio: { type: String },
     email: { type: String },
     phone: { type: String },
     TshirtNo: { type: String },

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const serviceSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
+    photo: { type: String },
     author: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     location: { type: String, required: true }, 

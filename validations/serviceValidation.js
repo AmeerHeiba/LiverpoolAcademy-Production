@@ -4,6 +4,7 @@ const serviceSchema = {
     create: Joi.object({
         title: Joi.string().required(),
         description: Joi.string().required(),
+        photo: Joi.string().uri().required(),
         location: Joi.string().min(3).required(), // Branch location
         birthRangeFrom: Joi.number().integer().min(1900).max(new Date().getFullYear()).required(),
         birthRangeTo: Joi.number().integer().greater(Joi.ref('birthRangeFrom')).max(new Date().getFullYear()).required(),
@@ -18,6 +19,7 @@ const serviceSchema = {
     update: Joi.object({
         title: Joi.string(),
         description: Joi.string(),
+        photo: Joi.string().uri(),
         location: Joi.string().min(3),
         birthRangeFrom: Joi.number().integer().min(1900).max(new Date().getFullYear()),
         birthRangeTo: Joi.number().integer().greater(Joi.ref('birthRangeFrom')).max(new Date().getFullYear()),
