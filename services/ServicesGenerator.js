@@ -1,3 +1,5 @@
+
+
 // /services/ServicesGenerator.js
 exports.createService = (serviceType, serviceModel) => {
     // Define operations in a map
@@ -48,6 +50,14 @@ exports.createService = (serviceType, serviceModel) => {
         getCount: async () => {
             const count = await serviceModel.countDocuments();
             return count;
+        },
+        filter: async (filterConditions) => {
+            if (typeof filterConditions !== 'object') {
+                throw new Error('Filter conditions must be an object');
+            }
+
+            const results = await serviceModel.find(filterConditions);
+            return results;
         }
     };
 

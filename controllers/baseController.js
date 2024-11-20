@@ -50,6 +50,11 @@ exports.handleRequest = (model, operation) => async (req, res, next = (err) => r
                 const result = await serviceFunction();
                 res.status(200).json(result);
             },
+            filter: async () => {
+                const filterConditions = req.body;
+                const result = await serviceFunction(filterConditions);
+                res.status(200).json(result);
+            },
         };
 
         if (!operationMap[operation]) {
