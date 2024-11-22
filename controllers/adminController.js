@@ -28,7 +28,6 @@ const modelServices = {
 // Render the dashboard with data for all models
 exports.renderDashboard = async (req, res, next) => {
     try {
- 
         const dataPromises = Object.values(modelServices).map(async ({ model }) => model.find());
         const news = await dataPromises[0];
         const branches = await dataPromises[1];
@@ -36,17 +35,31 @@ exports.renderDashboard = async (req, res, next) => {
         const gallery = await dataPromises[3];
         const stories = await dataPromises[4];
         const staff = await dataPromises[5];
-        
-        const statisticsCounts = (await Promise.all(Object.values(modelServices).map(async ({ service }) => service.getCount()))); 
-                // Map counts to model names
+
+        const statisticsCounts = await Promise.all(
+            Object.values(modelServices).map(async ({ service }) => service.getCount())
+        );
+
         const modelNames = Object.keys(modelServices);
         const statistics = modelNames.reduce((acc, modelName, index) => {
             acc[modelName] = statisticsCounts[index];
-                return acc;
-            }, {});
-        
-        res.render("admin/pages/dashboard", { news, branches, services, gallery, stories, staff, statistics });
-        
+            return acc;
+        }, {});
+
+        // Determine language (default to 'en' if not provided)
+        const lang = req.query.lang || 'ar';
+
+        // Pass the lang variable to the EJS template
+        res.render("admin/pages/dashboard", { 
+            news, 
+            branches, 
+            services, 
+            gallery, 
+            stories, 
+            staff, 
+            statistics, 
+            lang ,
+        });
     } catch (error) {
         next(new CustomError(500, "Error loading dashboard"));
     }

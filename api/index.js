@@ -13,6 +13,10 @@ const CustomError = require("../utils/CustomError");
 const dotenv = require("dotenv");
 const path = require("path");
 const { inject } = require("@vercel/analytics");
+const setLanguageMiddleware = require("../middlewares/stLanguageMiddleware");
+
+
+
  
 inject();
 
@@ -21,6 +25,7 @@ dotenv.config();
 const adminAuthRouter = require("./routes/adminAuthRoutes");
 const dashboardRouter = require("./routes/adminDashboardRoutes");
 const generateRoutes = require("./routes/routerGenerator");
+
 
 //MODELS
 const News = require("../models/News");
@@ -66,7 +71,7 @@ const apiLimiter = rateLimit({
 // CORS setup
 const corsOptions = {
     origin: "*",
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST'],
     credentials: true
 };
 
@@ -88,7 +93,8 @@ app.use(cookieParser());
 app.use("/admin", adminAuthRouter);
 app.use("/admin/dashboard", dashboardRouter);
 
-// Route for news-related endpoints
+app.use(setLanguageMiddleware); 
+// API routes
 app.use("/api/news", generateRoutes(News));
 app.use("/api/staff", generateRoutes(Staff));
 app.use("/api/branch", generateRoutes(Branch));

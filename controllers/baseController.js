@@ -8,12 +8,12 @@ exports.handleRequest = (model, operation) => async (req, res, next = (err) => r
 
         const operationMap = {
             getAll: async () => {
-                const result = await serviceFunction();
-                res.status(200).json(result);
+                const results = await serviceFunction(req.lang);
+                res.status(200).json(results);
             },
             getById: async () => {
                 const itemId = req.params.id;
-                const result = await serviceFunction(itemId);
+                const result = await serviceFunction(itemId, req.lang);
                 if (!result) return next(new CustomError(404, `${model.modelName} not found`));
                 res.status(200).json(result);
             },

@@ -2,26 +2,28 @@ const Joi = require("joi");
 
 const branchSchema = {
     create: Joi.object({
-        branchName: Joi.string().min(3).max(100).required(),
-        address: Joi.string().min(3).required(),
+        branchName_ar: Joi.string().min(3).max(100).required(),
+        branchName_en: Joi.string().max(100).optional(),
+        address_ar: Joi.string().min(3).required(),
+        address_en: Joi.string().optional(),
         phone: Joi.string().pattern(/^(?:\+965)?[5692][0-9]{7}$/).required(),
-        phone: Joi.string(),
-        email: Joi.string().email().required(),
-        location: Joi.string(),
-        photo: Joi.string().uri()
+        email: Joi.string().email().optional(),
+        location: Joi.string().optional(),
+        photo: Joi.string().uri().optional(),
     }),
     update: Joi.object({
-        branchName: Joi.string().min(3).max(100),
-        address: Joi.string().min(3),
-        phone: Joi.string().pattern(/^(?:\+965)?[5692][0-9]{7}$/),
-        email: Joi.string().email(),
-        location: Joi.string(),
-        photo: Joi.string().uri()
-
+        branchName_ar: Joi.string().min(3).max(100).optional(),
+        branchName_en: Joi.string().optional(),
+        address_ar: Joi.string().min(3).optional(),
+        address_en: Joi.string().optional(),
+        phone: Joi.string().pattern(/^(?:\+965)?[5692][0-9]{7}$/).optional(),
+        email: Joi.string().email().optional(),
+        location: Joi.string().optional(),
+        photo: Joi.string().uri().optional(),
     }),
     Id: Joi.object({
-        id: Joi.string().hex().length(24).required()
-    })
+        id: Joi.string().hex().length(24).required(),
+    }),
 };
 
 module.exports = branchSchema;

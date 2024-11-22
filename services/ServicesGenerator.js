@@ -4,14 +4,14 @@
 exports.createService = (serviceType, serviceModel) => {
     // Define operations in a map
     const operations = {
-        getById: async (id) => {
+        getAll: async (lang) => {
+            const results = await serviceModel.find();
+            return results.map((item) => mapLanguageFields(item, lang));
+        },
+        getById: async (id, lang) => {
             const result = await serviceModel.findById(id);
             if (!result) throw new Error(`${serviceModel.modelName} not found`);
-            return result;
-        },
-        getAll: async () => {
-            const results = await serviceModel.find();
-            return results;
+            return mapLanguageFields(result, lang);
         },
         add: async (data) => {
             const newItem = new serviceModel(data);
@@ -66,3 +66,20 @@ exports.createService = (serviceType, serviceModel) => {
     if (!operation) throw new Error('Invalid service type');
     return operation;
 };
+
+
+// Helper function to map language fields
+function mapLanguageFields(item, lang) {
+    const fieldsToTranslate = Object.keys(item._doc).filter((key) => key.endsWith("_ar") || key.endsWith("_en"));
+
+    const translatedItem = { ...item._doc };
+    fieldsToTranslate.forEach((field) => {
+        const baseField = field.replace(/_(ar|en)$/, ""); // Get field name without suffix
+        const preferredField = `${baseField}_${lang}`;
+        const fallbackField = `${baseField}_ar`;
+
+        translatedItem[baseField] = item[preferredField] || item[fallbackField] || null;
+    });
+
+    return translatedItem;
+}
