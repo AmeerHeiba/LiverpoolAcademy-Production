@@ -90,6 +90,7 @@ app.use(cookieParser());
 
 
 // Admin routes
+app.use("/",adminAuthRouter)
 app.use("/admin", adminAuthRouter);
 app.use("/admin/dashboard", dashboardRouter);
 
@@ -125,8 +126,6 @@ const connectDatabase = async () => {
     if (isConnected) return;
     try {
         await mongoose.connect(process.env.DEV_MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
         });
         isConnected = true;
         console.log("MongoDB connected");

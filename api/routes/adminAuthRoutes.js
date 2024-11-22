@@ -7,9 +7,11 @@ const authenticateAdmin = require("../../middlewares/authenticateAdmin");
 const adminController = require("../../controllers/adminController");
 
 // Register route
+router.get("/", (res)=>{
+    res.render("admin/login")
+})
 router.post("/register", validate(adminValidation.register), adminAuthController.register);
 router.get("/login", (req, res) => {
-    console.log("Login route accessed");
     res.render("admin/login")
 });
 
