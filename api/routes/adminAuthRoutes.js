@@ -10,7 +10,7 @@ const adminController = require("../../controllers/adminController");
 router.get("/", (req,res)=>{
     res.render("admin/login")
 });
-router.post("/register", validate(adminValidation.register), adminAuthController.register);
+// router.post("/register", validate(adminValidation.register), adminAuthController.register);
 router.get("/login", (req, res) => {
     res.render("admin/login")
 });
