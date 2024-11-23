@@ -43,68 +43,52 @@
         </div>
     </section>
 
-    <!-- Add Album Modal -->
-    <div class="modal fade" id="addAlbumModal" tabindex="-1" aria-labelledby="addAlbumModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-3 shadow-lg">
-                <form id="addAlbumForm" method="POST" enctype="multipart/form-data">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="addAlbumModalLabel">Add New Album</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Add Album Modal -->
+<div class="modal fade" id="addAlbumModal" tabindex="-1" aria-labelledby="addAlbumModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-3 shadow-lg">
+            <%- include("../partials/spinner") %>
+            <form id="addAlbumForm" method="POST" enctype="multipart/form-data">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="addAlbumModalLabel">Add New Album</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Title in Arabic -->
+                    <div class="mb-3">
+                        <label for="albumTitleAr" class="form-label">Album Title (Arabic)</label>
+                        <input type="text" class="form-control" id="albumTitleAr" name="title_ar" required>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="albumTitle" class="form-label">Album Title</label>
-                            <input type="text" class="form-control" id="albumTitle" name="title" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="albumDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="albumDescription" name="description" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="images" class="form-label">Upload Images</label>
-                            <input type="file" class="form-control" id="images" name="images" multiple>
-                        </div>
+                    <!-- Title in English -->
+                    <div class="mb-3">
+                        <label for="albumTitleEn" class="form-label">Album Title (English)</label>
+                        <input type="text" class="form-control" id="albumTitleEn" name="title_en">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="addAlbumBtn">Add Album</button>
+                    <!-- Description in Arabic -->
+                    <div class="mb-3">
+                        <label for="albumDescriptionAr" class="form-label">Description (Arabic)</label>
+                        <textarea class="form-control" id="albumDescriptionAr" name="description_ar" required></textarea>
                     </div>
-                </form>
-            </div>
+                    <!-- Description in English -->
+                    <div class="mb-3">
+                        <label for="albumDescriptionEn" class="form-label">Description (English)</label>
+                        <textarea class="form-control" id="albumDescriptionEn" name="description_en"></textarea>
+                    </div>
+                    <!-- Upload Images -->
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Upload Images</label>
+                        <input type="file" class="form-control" id="images" name="images" multiple>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="addAlbumBtn">Add Album</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Edit Album Modal -->
-    <div class="modal fade" id="editAlbumModal" tabindex="-1" aria-labelledby="editAlbumModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-3 shadow-lg">
-                <form id="editAlbumForm" method="POST" enctype="multipart/form-data">
-                    <div class="modal-header bg-warning text-white">
-                        <h5 class="modal-title" id="editAlbumModalLabel">Edit Album</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="editAlbumTitle" class="form-label">Album Title</label>
-                            <input type="text" class="form-control" id="editAlbumTitle" name="title" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editAlbumDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="editAlbumDescription" name="description" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <input type="hidden" class="form-control" id="AlbumId" name="AlbumId"></input>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-warning" id="editAlbumBtn">Save Changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
 </div>
 

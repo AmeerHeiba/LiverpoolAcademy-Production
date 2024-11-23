@@ -101,8 +101,8 @@
                         <h4 class="card-title text-center">Staff and Players</h4>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <% staff.forEach(staffItem => { %>
-                            <%- include("../partials/card", { item: staffItem, type: "staff" }) %>
+                        <% staffs.forEach(staff => { %>
+                            <%- include("../partials/card", { item: staff, type: "staff" }) %>
                         <% }) %>
                     </ul>
                 </div>

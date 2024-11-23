@@ -34,7 +34,7 @@ exports.renderDashboard = async (req, res, next) => {
         const services = await dataPromises[2];
         const gallery = await dataPromises[3];
         const stories = await dataPromises[4];
-        const staff = await dataPromises[5];
+        const staffs = await dataPromises[5];
 
         const statisticsCounts = await Promise.all(
             Object.values(modelServices).map(async ({ service }) => service.getCount())
@@ -56,7 +56,7 @@ exports.renderDashboard = async (req, res, next) => {
             services, 
             gallery, 
             stories, 
-            staff, 
+            staffs, 
             statistics, 
             lang ,
         });

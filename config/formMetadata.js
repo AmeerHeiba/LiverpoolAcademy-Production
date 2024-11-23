@@ -67,7 +67,7 @@ module.exports = {
         { name: 'title_en', type: 'text', required: false },
         { name: 'description_ar', type: 'textarea', required: true },
         { name: 'description_en', type: 'textarea', required: false },
-        { name: 'images', type: 'file', multiple: true, required: false },
+        
 
     ],
 };

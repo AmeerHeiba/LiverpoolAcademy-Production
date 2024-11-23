@@ -3,10 +3,12 @@
         <div>
             <!-- Display item title or name -->
             <h5 class="text-dark mb-1"><%= 
-                item.title || 
-                item.name || 
-                item.branchName || 
-                item.Employeename || 
+                item.title_en || 
+                item.name_en || 
+                item.branchName_en || 
+                item.Employeename_en || 
+                item.game || 
+                item.storyName_en ||
                 "Unnamed Item" 
             %></h5>
             <!-- Author or creator -->
@@ -16,7 +18,7 @@
                         ? "by " + item.author 
                         : (item.role 
                             ? "Role: " + item.role 
-                            : "Role: Unknown") 
+                            : item.position_en) 
                 %>
             </small>
         </div>
